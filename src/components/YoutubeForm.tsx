@@ -2,16 +2,26 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
+type formValues = {
+  username: string;
+  email: string;
+  chanelname: string;
+};
+
 let renderCount = 0;
 const YoutubeForm = () => {
-  const form = useForm();
+  const form = useForm<formValues>();
 
-  const { register, control } = form;
+  const { register, control, handleSubmit } = form;
   renderCount++;
+
+  const onSubmit = (data: formValues) => {
+    console.log("Form Submitted", { data });
+  };
   return (
     <div>
       {/* <h1>YouTube Form {renderCount / 2}</h1> */}
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="username">Username</label>
         <input
           placeholder="User name"

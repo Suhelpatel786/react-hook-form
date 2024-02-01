@@ -11,7 +11,19 @@ type formValues = {
 let renderCount = 0;
 
 const YoutubeForm = () => {
-  const form = useForm<formValues>();
+  const form = useForm<formValues>({
+    defaultValues: async () => {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/users/1"
+      );
+      const data = await response.json();
+      return {
+        username: "batman",
+        email: data.email,
+        chanelname: "",
+      };
+    },
+  });
 
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;

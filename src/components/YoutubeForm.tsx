@@ -9,6 +9,7 @@ type formValues = {
 };
 
 let renderCount = 0;
+
 const YoutubeForm = () => {
   const form = useForm<formValues>();
 
@@ -48,6 +49,22 @@ const YoutubeForm = () => {
             required: {
               value: true,
               message: "Email is required",
+            },
+            validate: {
+              notAllowedEmail: (fieldValue: string) => {
+                const restrictedEmails = ["admin@gmail.com", "abc@gmail.com"];
+                if (restrictedEmails.includes(fieldValue)) {
+                  return "Please Enter a diffrent Email !!";
+                }
+
+                return true;
+              },
+              blackListedDomain: (fieldValue: string) => {
+                if (fieldValue.endsWith("baddomain.com")) {
+                  return "This Domain is not Supported !!";
+                }
+                return true;
+              },
             },
           })}
           type="email"

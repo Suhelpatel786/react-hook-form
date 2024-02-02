@@ -10,6 +10,7 @@ type formValues = {
     twitter: string;
     instagram: string;
   };
+  phoneNumbers: string[];
 };
 
 let renderCount = 0;
@@ -29,6 +30,7 @@ const YoutubeForm = () => {
           twitter: "",
           instagram: "",
         },
+        phoneNumbers: ["", ""],
       };
     },
   });
@@ -110,18 +112,60 @@ const YoutubeForm = () => {
         <input
           placeholder="Twitter account"
           type="text"
-          {...register("social.twitter")}
+          {...register("social.twitter", {
+            required: {
+              value: true,
+              message: "Please enter your twitter account",
+            },
+          })}
           id="twitter"
         />
 
-        <label htmlFor="instagram">Facebook</label>
+        <p className="error">{errors?.social?.twitter?.message}</p>
+
+        <label htmlFor="instagram">Instagram</label>
         <input
-          placeholder="instagram account"
+          placeholder="Phone Numbeer"
           type="text"
-          {...register("social.instagram")}
+          {...register("social.instagram", {
+            required: {
+              value: true,
+              message: "Please enter your instagram account",
+            },
+          })}
           id="instagram"
         />
 
+        <p className="error">{errors?.social?.instagram?.message}</p>
+
+        <label htmlFor="phonenumber">Phone number 1</label>
+        <input
+          placeholder="Phone number"
+          type="text"
+          {...register("phoneNumbers.0", {
+            required: {
+              value: true,
+              message: "Please enter your primary phone number",
+            },
+          })}
+          id="phonenumber"
+        />
+
+        <p className="error">{errors?.phoneNumbers?.[0]?.message}</p>
+
+        <label htmlFor="phonenumber1">Phone number 2 </label>
+        <input
+          placeholder="Phone number"
+          type="text"
+          {...register("phoneNumbers.1", {
+            required: {
+              value: true,
+              message: "Please enter your secondary phone number",
+            },
+          })}
+          id="phonenumber1"
+        />
+        <p className="error">{errors?.phoneNumbers?.[1]?.message}</p>
         <button type="submit">Submit</button>
       </form>
       <DevTool control={control} />

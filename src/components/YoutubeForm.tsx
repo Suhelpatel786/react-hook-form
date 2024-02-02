@@ -49,7 +49,15 @@ const YoutubeForm = () => {
     },
   });
 
-  const { register, control, handleSubmit, formState, watch, getValues } = form;
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState,
+    watch,
+    getValues,
+    setValue,
+  } = form;
   const { errors } = formState;
 
   renderCount++;
@@ -59,7 +67,6 @@ const YoutubeForm = () => {
   };
 
   //use fields array
-
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
     control,
@@ -79,6 +86,17 @@ const YoutubeForm = () => {
     //handle get values
     console.log("Get Values", getValues());
   };
+
+  const handleSetValues = () => {
+    // setValue("username", ""); //this will does not effect to the form state
+
+    setValue("username", "", {
+      // shouldDirty: true,
+      // shouldTouch: true,
+      shouldValidate: true,
+    });
+  };
+
   return (
     <div>
       {/* <h1>YouTube Form {renderCount / 2}</h1> */}
@@ -266,6 +284,10 @@ const YoutubeForm = () => {
         <p className="error">{errors?.dob?.message}</p>
         <button type="button" onClick={() => handleGetValues()}>
           Get Values
+        </button>
+
+        <button type="button" onClick={() => handleSetValues()}>
+          Set Values
         </button>
         <button type="submit">Submit</button>
       </form>

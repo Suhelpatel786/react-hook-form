@@ -15,6 +15,8 @@ type formValues = {
     number: string;
     select: string;
   }[];
+  age: number;
+  dob: Date;
 };
 
 let renderCount = 0;
@@ -41,6 +43,8 @@ const YoutubeForm = () => {
             select: "",
           },
         ],
+        age: 10,
+        dob: new Date(),
       };
     },
   });
@@ -212,6 +216,33 @@ const YoutubeForm = () => {
             Add phone number
           </button>
         </div>
+
+        <label htmlFor="age">Age</label>
+        <input
+          placeholder="Please enter age"
+          type="number"
+          {...register("age", {
+            valueAsNumber: true,
+            required: { value: true, message: "Age is required" },
+          })}
+          id="age"
+        />
+
+        <p className="error">{errors?.age?.message}</p>
+
+        <label htmlFor="date">DOB</label>
+        <input
+          placeholder="Please enter age"
+          type="date"
+          {...register("dob", {
+            valueAsDate: true,
+            required: { value: true, message: "Date of birth is required" },
+          })}
+          id="age"
+        />
+
+        <p className="error">{errors?.dob?.message}</p>
+
         <button type="submit">Submit</button>
       </form>
       <DevTool control={control} />

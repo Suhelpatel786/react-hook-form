@@ -6,6 +6,10 @@ type formValues = {
   username: string;
   email: string;
   chanelname: string;
+  social: {
+    twitter: string;
+    instagram: string;
+  };
 };
 
 let renderCount = 0;
@@ -21,6 +25,10 @@ const YoutubeForm = () => {
         username: "batman",
         email: data.email,
         chanelname: "",
+        social: {
+          twitter: "",
+          instagram: "",
+        },
       };
     },
   });
@@ -32,6 +40,7 @@ const YoutubeForm = () => {
   const onSubmit = (data: formValues) => {
     console.log("Form Submitted", { data });
   };
+
   return (
     <div>
       {/* <h1>YouTube Form {renderCount / 2}</h1> */}
@@ -96,6 +105,22 @@ const YoutubeForm = () => {
         />
 
         <p className="error">{errors?.chanelname?.message}</p>
+
+        <label htmlFor="twitter">Twitter</label>
+        <input
+          placeholder="Twitter account"
+          type="text"
+          {...register("social.twitter")}
+          id="twitter"
+        />
+
+        <label htmlFor="instagram">Facebook</label>
+        <input
+          placeholder="instagram account"
+          type="text"
+          {...register("social.instagram")}
+          id="instagram"
+        />
 
         <button type="submit">Submit</button>
       </form>

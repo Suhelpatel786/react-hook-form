@@ -49,8 +49,9 @@ const YoutubeForm = () => {
     },
   });
 
-  const { register, control, handleSubmit, formState } = form;
+  const { register, control, handleSubmit, formState, watch } = form;
   const { errors } = formState;
+
   renderCount++;
 
   const onSubmit = (data: formValues) => {
@@ -64,9 +65,25 @@ const YoutubeForm = () => {
     control,
   });
 
+  //to watch multiple value
+  // const username = watch("username");
+
+  //to watch multiple values
+  // const data = watch(["username", "chanelname"]);
+
+  // to watch all value
+  const allData = watch();
+
   return (
     <div>
       {/* <h1>YouTube Form {renderCount / 2}</h1> */}
+
+      {/*  to watch single value  */}
+      {/* <h1>{username}</h1> */}
+
+      {/* ti watch multiple values */}
+      {/* <h1>{allData?.email}</h1> */}
+
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <label htmlFor="username">Username</label>
         <input

@@ -58,7 +58,7 @@ const YoutubeForm = () => {
     getValues,
     setValue,
   } = form;
-  const { errors } = formState;
+  const { errors, dirtyFields, touchedFields } = formState;
 
   renderCount++;
 
@@ -96,6 +96,9 @@ const YoutubeForm = () => {
       shouldValidate: true,
     });
   };
+
+  // touched and dirty fields records
+  console.log({ touchedFields }, { dirtyFields });
 
   return (
     <div>

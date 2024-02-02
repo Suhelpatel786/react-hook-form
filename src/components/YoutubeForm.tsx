@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
 type formValues = {
@@ -11,6 +11,10 @@ type formValues = {
     instagram: string;
   };
   phoneNumbers: string[];
+  phNumbers: {
+    number: string;
+    select: string;
+  }[];
 };
 
 let renderCount = 0;
@@ -31,6 +35,12 @@ const YoutubeForm = () => {
           instagram: "",
         },
         phoneNumbers: ["", ""],
+        phNumbers: [
+          {
+            number: "",
+            select: "",
+          },
+        ],
       };
     },
   });
@@ -42,6 +52,13 @@ const YoutubeForm = () => {
   const onSubmit = (data: formValues) => {
     console.log("Form Submitted", { data });
   };
+
+  //use fields array
+
+  const { fields, append, remove } = useFieldArray({
+    name: "phNumbers",
+    control,
+  });
 
   return (
     <div>
@@ -166,6 +183,35 @@ const YoutubeForm = () => {
           id="phonenumber1"
         />
         <p className="error">{errors?.phoneNumbers?.[1]?.message}</p>
+
+        <div>
+          {fields.map((field, index) => (
+            <div key={field.id}>
+              <input
+                type="text"
+                {...register(`phNumbers.${index}.number` as const)}
+              />
+              <select {...register(`phNumbers.${index}.select` as const)}>
+                <option value="a">a</option>
+                <option value="b">b</option>
+                <option value="c">c</option>
+              </select>
+
+              {index > 0 && (
+                <button type="button" onClick={() => remove(index)}>
+                  Remove phone number
+                </button>
+              )}
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={() => append({ number: "", select: "" })}
+          >
+            Add phone number
+          </button>
+        </div>
         <button type="submit">Submit</button>
       </form>
       <DevTool control={control} />

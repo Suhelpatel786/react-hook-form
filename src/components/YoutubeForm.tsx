@@ -49,7 +49,7 @@ const YoutubeForm = () => {
     },
   });
 
-  const { register, control, handleSubmit, formState, watch } = form;
+  const { register, control, handleSubmit, formState, watch, getValues } = form;
   const { errors } = formState;
 
   renderCount++;
@@ -74,6 +74,11 @@ const YoutubeForm = () => {
   // to watch all value
   const allData = watch();
 
+  //get values
+  const handleGetValues = () => {
+    //handle get values
+    console.log("Get Values", getValues());
+  };
   return (
     <div>
       {/* <h1>YouTube Form {renderCount / 2}</h1> */}
@@ -259,7 +264,9 @@ const YoutubeForm = () => {
         />
 
         <p className="error">{errors?.dob?.message}</p>
-
+        <button type="button" onClick={() => handleGetValues()}>
+          Get Values
+        </button>
         <button type="submit">Submit</button>
       </form>
       <DevTool control={control} />
